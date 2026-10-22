@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.08" />
+    </filter>
+  </defs>
+  
+  <!-- Card background -->
+  <rect width="400" height="400" rx="20" fill="#ffffff" filter="url(#shadow)" />
+  <rect x="12" y="12" width="376" height="376" rx="14" fill="#ffffff" stroke="#e6e2d8" stroke-width="2" />
+  
+  <!-- Top UPI Header -->
+  <path d="M 24 24 L 376 24 L 376 70 L 24 70 Z" fill="#1b3f2e" rx="10" />
+  <text x="200" y="52" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" text-anchor="middle" letter-spacing="1">
+    SCAN &amp; PAY VIA ANY UPI APP
+  </text>
+  
+  <!-- Amount Badge -->
+  <rect x="110" y="85" width="180" height="32" rx="16" fill="#eef5f1" stroke="#1b3f2e" stroke-width="1.5" />
+  <text x="200" y="106" fill="#1b3f2e" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" text-anchor="middle">
+    ADVANCE: ₹1,100
+  </text>
+  
+  <!-- QR Code Frame -->
+  <g transform="translate(85, 130)">
+    <!-- Outer Corners -->
+    <!-- Top-Left -->
+    <rect x="0" y="0" width="60" height="60" fill="none" stroke="#1c2420" stroke-width="8" rx="6" />
+    <rect x="16" y="16" width="28" height="28" fill="#1b3f2e" rx="4" />
+    
+    <!-- Top-Right -->
+    <rect x="170" y="0" width="60" height="60" fill="none" stroke="#1c2420" stroke-width="8" rx="6" />
+    <rect x="186" y="16" width="28" height="28" fill="#1b3f2e" rx="4" />
+    
+    <!-- Bottom-Left -->
+    <rect x="0" y="170" width="60" height="60" fill="none" stroke="#1c2420" stroke-width="8" rx="6" />
+    <rect x="16" y="186" width="28" height="28" fill="#1b3f2e" rx="4" />
+    
+    <!-- QR Data Elements (Geometric Pattern) -->
+    <rect x="75" y="10" width="18" height="18" fill="#1c2420" />
+    <rect x="105" y="10" width="18" height="35" fill="#1c2420" />
+    <rect x="135" y="25" width="18" height="20" fill="#1c2420" />
+    
+    <rect x="15" y="75" width="18" height="35" fill="#1c2420" />
+    <rect x="45" y="90" width="30" height="18" fill="#1c2420" />
+    <rect x="90" y="75" width="50" height="50" rx="8" fill="#1b3f2e" />
+    <circle cx="115" cy="100" r="12" fill="#ffffff" />
+    <path d="M 111 96 L 119 96 L 115 104 Z" fill="#1b3f2e" />
+    
+    <rect x="155" y="75" width="20" height="20" fill="#1c2420" />
+    <rect x="190" y="85" width="25" height="20" fill="#1c2420" />
+    
+    <rect x="75" y="140" width="20" height="35" fill="#1c2420" />
+    <rect x="110" y="140" width="35" height="20" fill="#1c2420" />
+    <rect x="160" y="130" width="20" height="40" fill="#1c2420" />
+    <rect x="195" y="150" width="20" height="20" fill="#1c2420" />
+    
+    <rect x="75" y="190" width="35" height="20" fill="#1c2420" />
+    <rect x="125" y="180" width="20" height="35" fill="#1c2420" />
+    <rect x="160" y="190" width="50" height="20" fill="#1c2420" />
+  </g>
+  
+  <!-- Supported Apps Badges -->
+  <text x="200" y="375" fill="#4a5650" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" text-anchor="middle">
+    Google Pay • PhonePe • Paytm • BHIM UPI
+  </text>
+</svg>

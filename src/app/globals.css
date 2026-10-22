@@ -1,26 +1,51 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #fbfaf7;
+  --foreground: #1c2420;
+  --card-bg: #ffffff;
+  --card-border: #e6e2d8;
+  --primary-forest: #1b3f2e;
+  --primary-forest-hover: #143023;
+  --primary-forest-light: #eef5f1;
+  --accent-amber: #b45309;
+  --text-primary: #19231e;
+  --text-secondary: #4a5650;
+  --text-muted: #6f7d76;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure focus states are very clear for accessibility */
+*:focus-visible {
+  outline: 3px solid #1b3f2e;
+  outline-offset: 2px;
+}
+
+/* Touch targets */
+.touch-target-btn {
+  min-height: 54px;
+}
+
+.touch-target-input {
+  min-height: 52px;
+}
+
+/* Toast pop-in animation */
+@keyframes bounce-in {
+  0%   { transform: scale(0.75) translateY(10px); opacity: 0; }
+  60%  { transform: scale(1.05) translateY(-3px); opacity: 1; }
+  100% { transform: scale(1) translateY(0);       opacity: 1; }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.3s ease-out forwards;
 }
