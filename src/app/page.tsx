@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import TripHero from '@/components/trip/TripHero';
 import PaymentSection from '@/components/booking/PaymentSection';
 import BookingForm from '@/components/booking/BookingForm';
@@ -30,17 +31,22 @@ export default function HomePage() {
 
       {/* Simple Footer */}
       <footer className="w-full border-t border-stone-200 bg-stone-100 px-4 py-4 text-stone-900">
-        <div className="mx-auto flex max-w-3xl items-center justify-center gap-3">
-          <span className="text-sm font-semibold">Form powered by</span>
-          <div className="relative h-16 w-48">
-            <Image
-              src="/Untitled-3-01.png"
-              alt="Vortex Global Technologies"
-              fill
-              sizes="192px"
-              className="object-contain"
-            />
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-1">
+          <div className="flex items-center justify-center gap-3">
+            <span className="text-sm font-semibold">Form powered by</span>
+            <div className="relative h-16 w-48">
+              <Image
+                src="/Untitled-3-01.png"
+                alt="Vortex Global Technologies"
+                fill
+                sizes="192px"
+                className="object-contain"
+              />
+            </div>
           </div>
+          <Link href="/admin" className="rounded border border-stone-300 px-2 py-0.5 text-[10px] text-stone-400 transition-colors hover:border-stone-500 hover:text-stone-600">
+            /admin
+          </Link>
         </div>
       </footer>
 
