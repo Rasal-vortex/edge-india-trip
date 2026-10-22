@@ -1,9 +1,9 @@
 import React from 'react';
+import Image from 'next/image';
 import TripHero from '@/components/trip/TripHero';
 import PaymentSection from '@/components/booking/PaymentSection';
 import BookingForm from '@/components/booking/BookingForm';
 import { DEFAULT_TRIP } from '@/lib/config';
-import Link from 'next/link';
 
 export const metadata = {
   title: '2-Day Trip Booking',
@@ -29,17 +29,18 @@ export default function HomePage() {
       </main>
 
       {/* Simple Footer */}
-      <footer className="w-full bg-stone-900 text-stone-400 py-6 px-4 text-center text-sm border-t border-stone-800">
-        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="font-semibold text-stone-300">
-            2-Day Trip • Helpline: +91 {DEFAULT_TRIP.upiPhoneNumber}
-          </p>
-          <Link
-            href="/admin"
-            className="text-xs text-stone-400 hover:text-stone-200 underline"
-          >
-            Admin Login
-          </Link>
+      <footer className="w-full border-t border-stone-200 bg-stone-100 px-4 py-4 text-stone-900">
+        <div className="mx-auto flex max-w-3xl items-center justify-center gap-3">
+          <span className="text-sm font-semibold">Form powered by</span>
+          <div className="relative h-16 w-48">
+            <Image
+              src="/Untitled-3-01.png"
+              alt="Vortex Global Technologies"
+              fill
+              sizes="192px"
+              className="object-contain"
+            />
+          </div>
         </div>
       </footer>
 
