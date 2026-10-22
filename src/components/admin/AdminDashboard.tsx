@@ -11,6 +11,7 @@ interface BookingRow {
 }
 
 async function makeBookingsPdf(bookings: BookingRow[]): Promise<Blob> {
+  const totalPaid = bookings.reduce((total, booking) => total + booking.advance_amount, 0);
   const rows = bookings.length ? bookings : [{
     full_name: 'No bookings submitted yet',
     phone: '',
@@ -33,6 +34,8 @@ async function makeBookingsPdf(bookings: BookingRow[]): Promise<Blob> {
     context.fillStyle = '#17221b';
     context.font = 'bold 26px Arial, sans-serif';
     context.fillText('Edge India Community Trip - Bookings', 48, 55);
+    context.font = '15px Arial, sans-serif';
+    context.fillText(`Total people: ${bookings.length}    Total paid: ₹${totalPaid.toLocaleString('en-IN')}`, 48, 82);
     context.font = 'bold 17px Arial, sans-serif';
     context.fillText('Name', 48, 100);
     context.fillText('Phone', 310, 100);
@@ -378,6 +381,10 @@ export default function AdminDashboard() {
                 {bookings.length === 0 && !downloadError && (
                   <tr><td colSpan={4} className="px-3 py-8 text-center text-stone-500">No bookings submitted yet.</td></tr>
                 )}
+                <tr className="border-t-2 border-stone-300 bg-stone-50 font-bold">
+                  <td className="px-3 py-3" colSpan={3}>Total people: {bookings.length}</td>
+                  <td className="whitespace-nowrap px-3 py-3 text-right">₹{bookings.reduce((total, booking) => total + booking.advance_amount, 0).toLocaleString('en-IN')}</td>
+                </tr>
               </tbody>
             </table>
           )}
