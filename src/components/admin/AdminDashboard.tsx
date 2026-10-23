@@ -247,11 +247,24 @@ export default function AdminDashboard() {
           return;
         }
 
-        // Keep the user-initiated tab alive while the PDF is generated, then
-        // navigate it to the file. Mobile browsers can ignore a synthetic
-        // download link for PDFs, so the tab also provides a Save/Share route.
-        pdfTab.location.replace(url);
-        window.setTimeout(() => URL.revokeObjectURL(url), 10 * 60 * 1000);
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/api/admin/bookings/pdf';
+        form.target = pdfTab.name || '_blank';
+        form.enctype = 'multipart/form-data';
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.name = 'file';
+        const transfer = new DataTransfer();
+        transfer.items.add(pdfFile);
+        input.files = transfer.files;
+        form.appendChild(input);
+        document.body.appendChild(form);
+        pdfTab.name = 'booking-pdf-download';
+        form.target = 'booking-pdf-download';
+        form.submit();
+        form.remove();
+        URL.revokeObjectURL(url);
         return;
       }
 
