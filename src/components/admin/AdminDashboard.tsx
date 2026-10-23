@@ -239,8 +239,19 @@ export default function AdminDashboard() {
       const url = URL.createObjectURL(blob);
 
       if (pdfTab) {
-        pdfTab.location.href = url;
-        window.setTimeout(() => URL.revokeObjectURL(url), 5 * 60 * 1000);
+        const pdfFile = new File([blob], 'edge-india-trip-bookings.pdf', { type: 'application/pdf' });
+        if (navigator.canShare?.({ files: [pdfFile] }) && navigator.share) {
+          pdfTab.close();
+          await navigator.share({ files: [pdfFile], title: 'Trip bookings PDF' });
+          URL.revokeObjectURL(url);
+          return;
+        }
+
+        // Keep the user-initiated tab alive while the PDF is generated, then
+        // navigate it to the file. Mobile browsers can ignore a synthetic
+        // download link for PDFs, so the tab also provides a Save/Share route.
+        pdfTab.location.replace(url);
+        window.setTimeout(() => URL.revokeObjectURL(url), 10 * 60 * 1000);
         return;
       }
 
