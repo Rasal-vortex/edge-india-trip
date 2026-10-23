@@ -8,6 +8,7 @@ interface BookingRow {
   phone: string;
   company_name: string | null;
   advance_amount: number;
+  signed_screenshot_url?: string | null;
 }
 
 async function makeBookingsPdf(bookings: BookingRow[]): Promise<Blob> {
@@ -135,6 +136,7 @@ export default function AdminDashboard() {
   const [downloadError, setDownloadError] = useState('');
   const [bookings, setBookings] = useState<BookingRow[]>([]);
   const [isLoadingBookings, setIsLoadingBookings] = useState(false);
+  const [selectedReceipt, setSelectedReceipt] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/admin/auth')
@@ -366,6 +368,7 @@ export default function AdminDashboard() {
                   <th className="px-3 py-3 font-bold">Name</th>
                   <th className="px-3 py-3 font-bold">Phone</th>
                   <th className="px-3 py-3 font-bold">Company</th>
+                  <th className="px-3 py-3 font-bold">Receipt</th>
                   <th className="px-3 py-3 text-right font-bold">Paid Amount</th>
                 </tr>
               </thead>
@@ -375,14 +378,21 @@ export default function AdminDashboard() {
                     <td className="px-3 py-3">{booking.full_name}</td>
                     <td className="whitespace-nowrap px-3 py-3">{booking.phone}</td>
                     <td className="px-3 py-3">{booking.company_name || '—'}</td>
+                    <td className="px-3 py-2">
+                      {booking.signed_screenshot_url ? (
+                        <button type="button" onClick={() => setSelectedReceipt(booking.signed_screenshot_url!)} className="block rounded focus:outline-none focus:ring-2 focus:ring-emerald-700" aria-label={`View ${booking.full_name}'s payment receipt`}>
+                          <img src={booking.signed_screenshot_url} alt={`${booking.full_name}'s payment receipt`} className="h-12 w-12 rounded border border-stone-200 object-cover" loading="lazy" />
+                        </button>
+                      ) : <span className="text-stone-400">—</span>}
+                    </td>
                     <td className="whitespace-nowrap px-3 py-3 text-right">₹{booking.advance_amount.toLocaleString('en-IN')}</td>
                   </tr>
                 ))}
                 {bookings.length === 0 && !downloadError && (
-                  <tr><td colSpan={4} className="px-3 py-8 text-center text-stone-500">No bookings submitted yet.</td></tr>
+                  <tr><td colSpan={5} className="px-3 py-8 text-center text-stone-500">No bookings submitted yet.</td></tr>
                 )}
                 <tr className="border-t-2 border-stone-300 bg-stone-50 font-bold">
-                  <td className="px-3 py-3" colSpan={3}>Total people: {bookings.length}</td>
+                  <td className="px-3 py-3" colSpan={4}>Total people: {bookings.length}</td>
                   <td className="whitespace-nowrap px-3 py-3 text-right">₹{bookings.reduce((total, booking) => total + booking.advance_amount, 0).toLocaleString('en-IN')}</td>
                 </tr>
               </tbody>
@@ -390,6 +400,12 @@ export default function AdminDashboard() {
           )}
         </div>
       </section>
+      {selectedReceipt && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={() => setSelectedReceipt(null)} role="presentation">
+          <button type="button" onClick={() => setSelectedReceipt(null)} className="absolute right-4 top-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-stone-900">Close</button>
+          <img src={selectedReceipt} alt="Full size payment receipt" className="max-h-[90vh] max-w-full rounded-lg object-contain" onClick={(event) => event.stopPropagation()} />
+        </div>
+      )}
     </main>
   );
 }

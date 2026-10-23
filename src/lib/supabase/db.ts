@@ -249,9 +249,10 @@ export interface BookingExportRow {
   phone: string;
   company_name: string | null;
   advance_amount: number;
+  signed_screenshot_url?: string | null;
 }
 
-/** Fetches every booking export row without creating screenshot URLs. */
+/** Fetches booking rows and short-lived private screenshot URLs for the admin view. */
 export async function getBookingExportRows(): Promise<BookingExportRow[]> {
   const supabase = getServiceSupabase();
 
@@ -270,14 +271,17 @@ export async function getBookingExportRows(): Promise<BookingExportRow[]> {
   for (let offset = 0; ; offset += pageSize) {
     const { data, error } = await supabase
       .from('bookings')
-      .select('full_name, phone, company_name, advance_amount')
+      .select('full_name, phone, company_name, advance_amount, payment_screenshot_path')
       .order('created_at', { ascending: false })
       .range(offset, offset + pageSize - 1);
 
     if (error) throw new Error(`Could not fetch bookings for export: ${error.message}`);
 
-    const page = (data || []) as BookingExportRow[];
-    rows.push(...page);
+    const page = (data || []) as (BookingExportRow & { payment_screenshot_path: string })[];
+    rows.push(...await Promise.all(page.map(async ({ payment_screenshot_path, ...booking }) => ({
+      ...booking,
+      signed_screenshot_url: await getSignedScreenshotUrl(payment_screenshot_path),
+    }))));
     if (page.length < pageSize) return rows;
   }
 }
