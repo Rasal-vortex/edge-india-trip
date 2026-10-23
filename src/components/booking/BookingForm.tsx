@@ -200,7 +200,7 @@ export default function BookingForm() {
           {/* Field 1: Full Name */}
           <div>
             <label htmlFor="fullName" className="block text-lg font-bold text-stone-900 mb-1">
-              Your Full Name <span className="text-red-600">*</span>
+              Full Name <span className="text-red-600">*</span>
             </label>
             <input
               id="fullName"
@@ -214,7 +214,7 @@ export default function BookingForm() {
                 }
               }}
               disabled={isSubmitting}
-              placeholder="e.g. Ramesh Kumar"
+              placeholder="e.g. Arshad Arif"
               autoComplete="name"
               className={`w-full px-4 py-3.5 text-lg text-stone-900 bg-stone-50 border-2 ${
                 errors.fullName ? 'border-red-500 bg-red-50' : 'border-stone-300 focus:border-emerald-800'
@@ -274,7 +274,7 @@ export default function BookingForm() {
           {/* Field 3: Company Name / Place (Required) */}
           <div>
             <label htmlFor="companyName" className="block text-lg font-bold text-stone-900 mb-1">
-              Company Name or Oraganize Name <span className="text-red-600">*</span>
+              Company/Organization Name <span className="text-red-600">*</span>
             </label>
             <input
               id="companyName"
@@ -288,7 +288,7 @@ export default function BookingForm() {
                 }
               }}
               disabled={isSubmitting}
-              placeholder="e.g. Kochi or Company name"
+              placeholder="e.g. Vortex"
               className={`w-full px-4 py-3.5 text-lg text-stone-900 bg-stone-50 border-2 ${
                 errors.companyName ? 'border-red-500 bg-red-50' : 'border-stone-300 focus:border-emerald-800'
               } rounded-xl touch-target-input`}
